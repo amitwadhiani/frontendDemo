@@ -12,7 +12,11 @@ node {
   //    }
   //  }
    stage('docker build/push') {
-     sh """ npm install -g @angular/cli@latest && npm install --global yarn && yarn install """
+     nodejs(nodeJSInstallationName: 'nodejs') {
+       sh """ npm install -g @angular/cli@latest && npm install --global yarn && yarn install """
+      //  sh 'npm test'
+     }
+     
      docker.withRegistry('https://index.docker.io/v1/', '998ffb10-3286-4316-9fad-ef16a26aaa52') {
        def app = docker.build("amit0wadhiani/angularrealworldfrontend:${commit_id}", '.').push()
      }
