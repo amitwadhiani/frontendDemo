@@ -26,8 +26,6 @@ node {
      
    }
    stage('Deploy to App Service') {
-    steps {
-      script {
        withCredentials('service-principal') {
         sh """     
             AZURE_TENANT_ID='bf84df2f-5750-4359-b152-6caccdb92439'
@@ -38,7 +36,5 @@ node {
             az deployment group create --resource-group \$resourceGroup  --name \$deploymentName --template-file azureDeploy.json --parameters dev.parameters.json --parameters dockerRegistryPassword=\$dockerPassword --parameters linuxFxVersion="DOCKER|amit0wadhiani/angularrealworldfrontend:${env.BUILD_NUMBER}"
           """
         }
-      }
-     }
    }
 }
