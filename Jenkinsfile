@@ -37,5 +37,6 @@ node {
             az deployment group create --resource-group \$resourceGroup  --name \$deploymentName --template-file azureDeploy.json --parameters dev.parameters.json --parameters dockerRegistryPassword=${dockerPassword} --parameters linuxFxVersion="DOCKER|amit0wadhiani/angularrealworldfrontend:${env.BUILD_NUMBER}"
           """
         }
+     ])
    }
 }
