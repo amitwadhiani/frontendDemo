@@ -19,6 +19,7 @@ node {
      
      docker.withRegistry('https://index.docker.io/v1/', '998ffb10-3286-4316-9fad-ef16a26aaa52') {
        def app = docker.build("amit0wadhiani/angularrealworldfrontend:${commit_id}", '.').push()
+       def app = docker.build("amit0wadhiani/angularrealworldfrontend:${env.BUILD_NUMBER}", '.').push()
      }
    }
 }
