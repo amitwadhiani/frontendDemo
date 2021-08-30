@@ -11,7 +11,7 @@ node {
   //     //  sh 'npm test'
   //    }
   //  }
-  stages{
+  
   //  stage('Docker build/push') {
   //   //  nodejs(nodeJSInstallationName: 'nodejs') {
   //   //    sh """ npm install -g @angular/cli@latest && npm install --global yarn && yarn install """
@@ -42,4 +42,4 @@ node {
      ])
    }
   }
-}
+
