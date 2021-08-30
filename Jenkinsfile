@@ -27,14 +27,14 @@ node {
    }
    stage('Deploy to App Service') {
      withCredentials([
-        azureServicePrincipal(service-principal) {
+        withCredentials([string(credentialsId: "${AZURE_CLIENT_ID}", variable: 'AZURE_CLIENT_ID')],[string(credentialsId: "${AZURE_CLIENT_SECRET}", variable: 'AZURE_CLIENT_SECRET')],[string(credentialsId: "${dockerPassword}", variable: 'dockerPassword')]) {
         sh """     
             AZURE_TENANT_ID='bf84df2f-5750-4359-b152-6caccdb92439'
             SUBSCRIPTION_ID='3bf7a28f-d361-46d7-b93b-e5ced4d6191c'
             resourceGroup='amitRG-dev'
-            az login --service-principal --username ${AZURE_CLIENT_ID} --password ${AZURE_CLIENT_SECRET} --tenant \$AZURE_TENANT_ID --subscription \$SUBSCRIPTION_ID
+            az login --service-principal --username \$AZURE_CLIENT_ID --password \$AZURE_CLIENT_SECRET --tenant \$AZURE_TENANT_ID --subscription \$SUBSCRIPTION_ID
             az group create -l eastus2 -n \$resourceGroup --subscription \$SUBSCRIPTION_ID
-            az deployment group create --resource-group \$resourceGroup  --name \$deploymentName --template-file azureDeploy.json --parameters dev.parameters.json --parameters dockerRegistryPassword=${dockerPassword} --parameters linuxFxVersion="DOCKER|amit0wadhiani/angularrealworldfrontend:${env.BUILD_NUMBER}"
+            az deployment group create --resource-group \$resourceGroup  --name \$deploymentName --template-file azureDeploy.json --parameters dev.parameters.json --parameters dockerRegistryPassword=\$dockerPassword --parameters linuxFxVersion="DOCKER|amit0wadhiani/angularrealworldfrontend:${env.BUILD_NUMBER}"
           """
         }
      ])
