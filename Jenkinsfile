@@ -28,7 +28,8 @@ node {
    stage('Deploy to App Service') {
      withCredentials([
         withCredentials([azureServicePrincipal('service-principal'), string(credentialsId: 'dockerPassword', variable: 'dockerPassword')]) {
-        sh """     
+        sh """
+            export PATH=\$PATH:/var/jenkins_home/bin
             resourceGroup='amitRG-dev'
             az login --service-principal --username ${AZURE_CLIENT_ID} --password ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID} --subscription ${AZURE_SUBSCRIPTION_ID}
             az group create -l eastus2 -n \$resourceGroup --subscription ${AZURE_SUBSCRIPTION_ID}
