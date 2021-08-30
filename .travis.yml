@@ -4,7 +4,7 @@ node_js:
 
 branches:
   only:
-    - master
+    - main
 
 before_script:
   - yarn install --frozen-lockfile
