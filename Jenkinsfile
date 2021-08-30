@@ -11,20 +11,20 @@ node {
   //     //  sh 'npm test'
   //    }
   //  }
-   stage('Docker build/push') {
-    //  nodejs(nodeJSInstallationName: 'nodejs') {
-    //    sh """ npm install -g @angular/cli@latest && npm install --global yarn && yarn install """
-    //   //  sh 'npm test'
-    //  }
+  //  stage('Docker build/push') {
+  //   //  nodejs(nodeJSInstallationName: 'nodejs') {
+  //   //    sh """ npm install -g @angular/cli@latest && npm install --global yarn && yarn install """
+  //   //   //  sh 'npm test'
+  //   //  }
      
-     docker.withRegistry('https://index.docker.io/v1/', '998ffb10-3286-4316-9fad-ef16a26aaa52') {
-       def app = docker.build("amit0wadhiani/angularrealworldfrontend:${env.BUILD_NUMBER}", '.').push()
-     }
-     docker.withRegistry('https://index.docker.io/v1/', '998ffb10-3286-4316-9fad-ef16a26aaa52') {
-       def app = docker.build("amit0wadhiani/angularrealworldfrontend:${commit_id}", '.').push()
-     }
+  //    docker.withRegistry('https://index.docker.io/v1/', '998ffb10-3286-4316-9fad-ef16a26aaa52') {
+  //      def app = docker.build("amit0wadhiani/angularrealworldfrontend:${env.BUILD_NUMBER}", '.').push()
+  //    }
+  //    docker.withRegistry('https://index.docker.io/v1/', '998ffb10-3286-4316-9fad-ef16a26aaa52') {
+  //      def app = docker.build("amit0wadhiani/angularrealworldfrontend:${commit_id}", '.').push()
+  //    }
      
-   }
+  //  }
    stage('Deploy to App Service') {
      withCredentials([
         withCredentials([string(credentialsId: "${AZURE_CLIENT_ID}", variable: 'AZURE_CLIENT_ID')],[string(credentialsId: "${AZURE_CLIENT_SECRET}", variable: 'AZURE_CLIENT_SECRET')],[string(credentialsId: "${dockerPassword}", variable: 'dockerPassword')]) {
