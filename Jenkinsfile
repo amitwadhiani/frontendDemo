@@ -31,6 +31,7 @@ node {
           // azureCLI commands: [[exportVariablesString: '', script: 'resourceGroup='amitRG-dev' && az login --service-principal --username ${AZURE_CLIENT_ID} --password ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID} --subscription ${AZURE_SUBSCRIPTION_ID}'], [exportVariablesString: '', script: 'az group create -l eastus2 -n \\$resourceGroup --subscription ${AZURE_SUBSCRIPTION_ID}'], [exportVariablesString: '', script: 'az deployment group create --resource-group \\$resourceGroup  --name \\$deploymentName --template-file azureDeploy.json --parameters dev.parameters.json --parameters dockerRegistryPassword=${dockerPassword} --parameters linuxFxVersion="DOCKER\|amit0wadhiani\/angularrealworldfrontend:${env.BUILD_NUMBER}"']], principalCredentialId: 'service-principal'
         sh """
             resourceGroup='amitRG-dev'
+            deploymentName='angularrealworldfrontend'
             az login --service-principal --username ${AZURE_CLIENT_ID} --password ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID} # --subscription ${AZURE_SUBSCRIPTION_ID}
             az group create -l eastus2 -n \$resourceGroup --subscription ${AZURE_SUBSCRIPTION_ID}
             az deployment group create --resource-group \$resourceGroup  --name \$deploymentName --template-file azureDeploy.json --parameters dev.parameters.json --parameters dockerRegistryPassword=${dockerPassword} --parameters linuxFxVersion="DOCKER|amit0wadhiani/angularrealworldfrontend:${env.BUILD_NUMBER}"
